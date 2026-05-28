@@ -1,0 +1,20 @@
+# PyTorchConnectomics config — artifact (crack + bright aggregate) masking
+# 2-class semantic output: {0: bg, 1: crack, 2: bright}
+SYSTEM:
+  NUM_GPUS: 1
+  NUM_CPUS: 4
+MODEL:
+  ARCHITECTURE: unet_3d
+  IN_PLANES: 1
+  OUT_PLANES: 3
+  TARGET_OPT: ["9-3"]                 # semantic (3 classes)
+  LOSS_OPTION: [["WeightedCE"]]
+  LOSS_WEIGHT: [[1.0]]
+DATASET:
+  OUTPUT_PATH: outputs/artifact/
+SOLVER:
+  BASE_LR: 0.01
+  ITERATION_TOTAL: 40000
+INFERENCE:
+  AUG_MODE: mean
+  STRIDE: [4, 64, 64]

@@ -1,0 +1,29 @@
+# PyTorchConnectomics config — nuclei (cell body) segmentation
+# 3-channel target: foreground, contour, distance — standard cb recipe.
+SYSTEM:
+  NUM_GPUS: 1
+  NUM_CPUS: 4
+MODEL:
+  ARCHITECTURE: unet_3d
+  IN_PLANES: 1
+  OUT_PLANES: 3
+  TARGET_OPT: ["0", "1", "2"]      # mask, contour, distance
+  LOSS_OPTION: [["WeightedBCE"], ["WeightedBCE"], ["MSE"]]
+  LOSS_WEIGHT: [[1.0], [1.0], [1.0]]
+  FILTERS: [28, 36, 48, 64, 80]
+DATASET:
+  IMAGE_NAME: ""
+  LABEL_NAME: ""
+  INPUT_PATH: ""
+  OUTPUT_PATH: outputs/nuclei/
+  PAD_SIZE: [4, 64, 64]
+SOLVER:
+  LR_SCHEDULER_NAME: "MultiStepLR"
+  BASE_LR: 0.01
+  ITERATION_TOTAL: 100000
+  ITERATION_SAVE: 5000
+  SAMPLES_PER_BATCH: 4
+INFERENCE:
+  AUG_MODE: mean
+  AUG_NUM: 16
+  STRIDE: [4, 64, 64]

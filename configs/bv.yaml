@@ -1,0 +1,32 @@
+# PyTorchConnectomics config — blood vessel segmentation
+# Run: python -u -m connectomics.engine.trainer --config-file configs/bv.yaml
+SYSTEM:
+  NUM_GPUS: 1
+  NUM_CPUS: 4
+MODEL:
+  ARCHITECTURE: unet_3d
+  IN_PLANES: 1
+  OUT_PLANES: 1
+  TARGET_OPT: ["0"]               # binary BV mask
+  LOSS_OPTION: [["WeightedBCE", "DiceLoss"]]
+  LOSS_WEIGHT: [[1.0, 1.0]]
+  FILTERS: [28, 36, 48, 64, 80]
+DATASET:
+  IMAGE_NAME: ""                  # set via override or data.yaml
+  LABEL_NAME: ""
+  INPUT_PATH: ""
+  OUTPUT_PATH: outputs/bv/
+  PAD_SIZE: [4, 64, 64]
+  REJECT_SAMPLING:
+    SIZE_THRES: 1000
+    P: 0.95
+SOLVER:
+  LR_SCHEDULER_NAME: "MultiStepLR"
+  BASE_LR: 0.01
+  ITERATION_TOTAL: 60000
+  ITERATION_SAVE: 5000
+  SAMPLES_PER_BATCH: 4
+INFERENCE:
+  AUG_MODE: mean
+  AUG_NUM: 16
+  STRIDE: [4, 64, 64]

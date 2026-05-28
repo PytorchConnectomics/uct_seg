@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uct_seg"
+version = "0.1.0"
+description = "MicroCT 3D volume segmentation toolset (blood vessel, artifact, nuclei, dendrite, cell-type)"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+authors = [{ name = "PytorchConnectomics" }]
+dependencies = [
+  "numpy",
+  "h5py",
+  "imageio",
+  "scipy",
+  "scikit-image",
+]
+
+[project.optional-dependencies]
+viz = ["neuroglancer", "cloud-volume"]
+cv = ["opencv-python"]
+cc = ["connected-components-3d"]
+pytc = ["torch", "yacs"]
+dev = ["pytest", "ruff"]
+
+[project.scripts]
+uct-slurm-gen = "uct_seg.slurm.gen_jobs:main"
+
+[tool.setuptools.packages.find]
+include = ["uct_seg*"]

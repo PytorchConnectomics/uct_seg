@@ -1,0 +1,20 @@
+# PyTorchConnectomics config — large dendrite segmentation (TODO)
+# Placeholder: copy nuclei.yaml and adjust TARGET_OPT to affinity (e.g. "1-0-0").
+SYSTEM:
+  NUM_GPUS: 1
+  NUM_CPUS: 4
+MODEL:
+  ARCHITECTURE: unet_3d
+  IN_PLANES: 1
+  OUT_PLANES: 1
+  TARGET_OPT: ["0"]
+  LOSS_OPTION: [["WeightedBCE", "DiceLoss"]]
+  LOSS_WEIGHT: [[1.0, 1.0]]
+DATASET:
+  OUTPUT_PATH: outputs/dendrite/
+SOLVER:
+  BASE_LR: 0.01
+  ITERATION_TOTAL: 80000
+INFERENCE:
+  AUG_MODE: mean
+  STRIDE: [4, 64, 64]
