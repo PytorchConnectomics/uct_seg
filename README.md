@@ -2,6 +2,18 @@
 
 MicroCT 3D volume segmentation toolset for PyTorchConnectomics workflows.
 
+## Demo
+
+Segmentation outputs on a microCT volume:
+
+| Input | All targets |
+|---|---|
+| ![Input](demo/uct_input_image.png) | ![All](demo/uct_output_all.png) |
+
+| Blood vessel | Dendrite | Soma |
+|---|---|---|
+| ![BV](demo/uct_output_bloodvessel.png) | ![Dendrite](demo/uct_output_dendrite.png) | ![Soma](demo/uct_output_soma.png) |
+
 ## Scope
 
 Per-target sub-packages:
